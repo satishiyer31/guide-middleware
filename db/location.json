@@ -1,0 +1,32 @@
+[
+    {
+        "org_id": "1234",
+        "location": "Dunkin Donuts 1",
+        "location_id": "0876"
+    },
+    {
+        "org_id": "1234",
+        "location": "Dunkin Donuts 2",
+        "location_id": "0879"
+    },
+    {
+        "org_id": "1234",
+        "location": "Dunkin Donuts 3",
+        "location_id": "0870"
+    },
+    {
+        "org_id": "6789",
+        "location": "Dunkin Donuts 9",
+        "location_id": "9876"
+    },
+    {
+        "org_id": "6789",
+        "location": "Dunkin Donuts 12",
+        "location_id": "9900"
+    },
+    {
+        "org_id": "6789",
+        "location": "Dunkin Donuts 10",
+        "location_id": "9111"
+    }
+]
