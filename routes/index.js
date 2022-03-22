@@ -3,12 +3,12 @@ const express = require('express');
 
 
 // Import our modular routers for location
-const locationRouter = require('./getLocation.js');
+const salesforceCases = require('./Salesforce.js');
 
 
 const app = express();
 
-app.use('/getLocation', locationRouter);
+app.use('/getSalesforceCases', salesforceCases);
 
 
 module.exports = app;
