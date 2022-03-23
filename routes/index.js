@@ -1,9 +1,6 @@
 const express = require('express');
 
-
-
-// Import our modular routers for location
-const salesforceCases = require('./Salesforce.js');
+const salesforceCases = require('./salesforce.js');
 
 
 const app = express();
