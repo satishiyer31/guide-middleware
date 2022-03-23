@@ -1,8 +1,8 @@
-const salesforce = require('express').Router();
+const sf = require('express').Router();
 const conn = require('../config/connection');
 
 // GET Route for retrieving all the cases
-salesforce.get('/', (req, res) => {
+sf.get('/', (req, res) => {
   
   conn.query("Select CaseNumber,subject, description, status, createddate from Case", (err,result)=> {
     if(err){
@@ -13,7 +13,7 @@ salesforce.get('/', (req, res) => {
   })
 });
 
-salesforce.get('/:email', (req, res) => {
+sf.get('/:email', (req, res) => {
  
   var queryUrl = "Select CaseNumber,subject, description, status, createddate from Case where contactemail= '" + req.params.email+"'";
   // console.log(queryUrl)
@@ -32,4 +32,4 @@ salesforce.get('/:email', (req, res) => {
 });
 
 
-module.exports = salesforce;
+module.exports = sf;
