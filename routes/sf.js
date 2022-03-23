@@ -15,7 +15,7 @@ sf.get('/', (req, res) => {
 
 sf.get('/:email', (req, res) => {
  
-  var queryUrl = "Select CaseNumber,subject, description, status, createddate from Case where contactemail= '" + req.params.email+"'";
+  var queryUrl = "Select CaseNumber,subject, description, status, createddate,lastreferenceddate from Case where contactemail= '" + req.params.email+"'";
   // console.log(queryUrl)
   conn.query(queryUrl, (err,result)=> {
     if(err){
