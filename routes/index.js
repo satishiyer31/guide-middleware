@@ -1,6 +1,6 @@
 const express = require('express');
 
-const salesforceCases = require('./salesforce.js');
+const salesforceCases = require('./salesforce');
 
 
 const app = express();
