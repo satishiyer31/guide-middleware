@@ -3,7 +3,7 @@ const path = require('path');
 require('dotenv').config();
 const api = require('./routes/index.js');
 const cors = require('cors');
-const conn = require('./config/connection');
+// const conn = require('./config/connection');
 
 
 const PORT = process.env.PORT || 3001;

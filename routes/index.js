@@ -1,11 +1,11 @@
 const express = require('express');
 
-const salesforceCases = require('./salesforce');
+const salesforceRouter = require('./salesforce.js');
 
 
 const app = express();
 
-app.use('/getSalesforceCases', salesforceCases);
+app.use('/getSalesforceCases', salesforceRouter);
 
 
 module.exports = app;
