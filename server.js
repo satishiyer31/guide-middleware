@@ -17,15 +17,15 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', api);
 
 app.get('/', (req,res)=> {
-  // res.send("Satish's Guide Middleware POC");
-  conn.query("Select CaseNumber,subject, description, status, createddate from Case where contactemail='eric.s.smith411@gmail.com'", (err,result)=> {
-    if(err){
-      console.log(err)
-    } else {
-      console.log(result.totalSize)
-      res.json(result.records)
-    }
-  })
+  res.send("Satish's Guide Middleware POC");
+  // conn.query("Select CaseNumber,subject, description, status, createddate from Case where contactemail='eric.s.smith411@gmail.com'", (err,result)=> {
+  //   if(err){
+  //     console.log(err)
+  //   } else {
+  //     console.log(result.totalSize)
+  //     res.json(result.records)
+  //   }
+  // })
 })
 
 
