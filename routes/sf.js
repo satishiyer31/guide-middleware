@@ -4,7 +4,7 @@ const conn = require('../config/connection');
 // GET Route for retrieving all the cases
 sf.get('/', (req, res) => {
   
-  conn.query("Select CaseNumber,subject, description, status, createddate from Case", (err,result)=> {
+  conn.query("Select CaseNumber,subject, description, status, createddate,id from Case", (err,result)=> {
     if(err){
       res.status(500).json(err);
     } else {
@@ -15,7 +15,7 @@ sf.get('/', (req, res) => {
 
 sf.get('/:email', (req, res) => {
  
-  var queryUrl = "Select CaseNumber,subject, description, status, createddate,lastreferenceddate from Case where contactemail= '" + req.params.email+"'";
+  var queryUrl = "Select CaseNumber,subject, description, status, createddate,lastreferenceddate,id from Case where contactemail= '" + req.params.email+"'";
   // console.log(queryUrl)
   conn.query(queryUrl, (err,result)=> {
     if(err){
