@@ -17,28 +17,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', api);
 
 app.get('/', async(req,res)=> {
-  // res.send("Satish's Guide Middleware POC");
+  res.send("Satish's Guide Middleware POC");
 
-  const auth = new google.auth.GoogleAuth({
-    keyFile: "credentials.json",
-    scopes: "https://www.googleapis.com/auth/spreadsheets",
-  })
-
-  //create client instance for auth
-  const client = await auth.getClient();
-
-//Instance of API
-const googleSheets = google.sheets({version: "v4", auth: client });
-
-const spreadsheetId ="1ZWTkdTq0PMnJzWziSvRf-EGHnd6_HO8on7R8aRXNrlE";
-
-const getRows = await googleSheets.spreadsheets.values.get({
-
-  auth,
-  spreadsheetId,
-  range: "Sheet1",
-});
-res.send(getRows.data.values);
+  
 
 
 })

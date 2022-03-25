@@ -25,6 +25,7 @@ oms.get('/', async(req,res)=>{
       spreadsheetId,
       range: "Sheet1",
     });
+    console.log(getRows.data.values[1][1])
     res.json(getRows.data.values);
 })
 
