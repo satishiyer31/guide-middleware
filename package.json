@@ -5,7 +5,9 @@
   "license": "MIT",
   "start": "node server.js",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "googleapis": "^98.0.0",
