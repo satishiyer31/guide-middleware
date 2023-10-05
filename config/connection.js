@@ -11,8 +11,8 @@ const conn = new jsforce.Connection({
   
     }
     else {
-      console.log("User ID" + userInfo.id)
-      console.log("ORg ID"+ userInfo.organizationId)
+      // console.log("User ID" + userInfo.id)
+      // console.log("ORg ID"+ userInfo.organizationId)
     }
   });
 

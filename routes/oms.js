@@ -67,4 +67,40 @@ oms.get('/:email', async(req,res)=>{
 
  })
 
+ oms.get('/orders/:order_id', async(req,res)=>{
+
+    // const mykey = crypto.createDecipher('aes-128-cbc',SEC_KEY);
+
+    // let email = mykey.update(req.params.email,'hex','utf-8');
+
+    // email += mykey.final('utf-8');
+
+    //create client instance for auth
+    // console.log(req.params.order_id)
+   const client = await auth.getClient();
+    
+   //Instance of API
+   const googleSheets = google.sheets({version: "v4", auth: client });
+     
+   const getRows = await googleSheets.spreadsheets.values.get({
+     
+       auth,
+       spreadsheetId,
+       range: "Sheet1",
+     });
+    //  console.log(getRows.data.values[1][1])
+    //  res.json(getRows.data.values);
+     const rows = getRows.data.values;
+     const filteredRows = []
+
+     for (const row of rows) {
+         if ((row[1]) == req.params.order_id) {
+             filteredRows.push(row)
+         }
+     }
+
+     res.json(filteredRows);
+
+ })
+
 module.exports = oms;
