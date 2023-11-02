@@ -2,11 +2,15 @@ const enduserAuth = require('express').Router();
 const signToken = require('../helpers/fsUtils');
 
 
-enduserAuth.get('/:jwt', async (req,res) => {
+enduserAuth.post('/:jwt', async (req,res) => {
 
+if (req.body) {
     const token = await signToken(req.body);
     console.log(token)
-    return token;
+    res.status(201).json(token) ;
+}
+
+    
 })
 
 
