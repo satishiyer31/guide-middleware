@@ -13,7 +13,7 @@ if (req.body) {
     // const expiration = '2h'
     const token = jwt.sign({
         "email": "eric.s.smith411@gmail.com",
-        "scopr": "user",
+        "scope": "user",
         "external_id": "0034x00000OdUn0AAF",
         "name": "Erica Lee"
     
