@@ -8,10 +8,10 @@ enduserAuth.post('/', async (req,res) => {
 if (req.body) {
 
     const payload = req.body
-    console.log(payload);
+    // console.log(payload);
     const expiration = '2h'
     const token = jwt.sign({ data: payload }, JWT_SECRET, { expiresIn: expiration });
-    console.log(token)
+    // console.log(token)
     res.status(201).json(token);
 }
 
