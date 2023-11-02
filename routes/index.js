@@ -6,6 +6,7 @@ const empRouter = require('./employees.js');
 const assetsRouter = require('./assets');
 const encryptRouter = require('./encrypt')
 // const AlexaRouter = require('./alexa.js')
+const jwtRouter = require('./enduserAuth')
 
 
 const app = express();
@@ -16,6 +17,6 @@ app.use('/getEmpData',empRouter);
 app.use('/getAssets',assetsRouter);
 app.use('/crypto',encryptRouter);
 // app.use('/alexa',AlexaRouter);
-
+app.use('/jwt', jwtRouter);
 
 module.exports = app;

@@ -14,7 +14,7 @@ const url = 'https://zendesksatish.assetsonar.com/assets/filter.api?&status=poss
         
         headers: {
             'Content-Type': 'application/json',
-            'token': ASSET_SONAR //'519aa7a2a88581a7b12bf8fbf1f0501d'
+            'token': ASSET_SONAR 
         }
     
     });

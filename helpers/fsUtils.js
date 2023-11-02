@@ -1,5 +1,7 @@
 const fs = require('fs');
 const util = require('util');
+const jwt = require('jsonwebtoken');
+const {JWT_SECRET} = process.env;
 
 // Promise version of fs.readFile
 const readFromFile = util.promisify(fs.readFile);
@@ -31,6 +33,10 @@ const readAndAppend = (content, file) => {
   });
 };
 
+const signToken = ({email, username, _id}) => {
+  const payload = {email, username, _id};
+  const expiration = '2h'
+  return jwt.sign({ data: payload }, JWT_SECRET, { expiresIn: expiration });
+}
 
-
-module.exports = { readFromFile, writeToFile, readAndAppend };
+module.exports = { readFromFile, writeToFile, readAndAppend,signToken };
