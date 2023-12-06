@@ -3,6 +3,12 @@ const crypto = require("crypto");
 const {SEC_KEY} = process.env;
 
 const {google}= require("googleapis");
+const jwt = require('jsonwebtoken');
+const jwksClient = require("jwks-rsa");
+
+const jwksClientInstance = jwksClient({
+  jwksUri: `https://z3nsatishiyer.zendesk.com/api/v2/help_center/integration/keys.json`
+})
 
 const auth = new google.auth.GoogleAuth({
     keyFile: "google-credentials.json",
@@ -23,7 +29,8 @@ oms.get('/', async(req,res)=>{
             throw Error('Invalid Authorization')
         }
         const email = data.email
-
+        // console.log(email)
+        
         //create client instance for auth
         const client = await auth.getClient();
         
@@ -58,8 +65,9 @@ oms.get('/', async(req,res)=>{
 
     try {
       const token = await getTokenfromHeader(request)
+    //   console.log('Token: ',token)
       const validatedPayload = await validateToken(token)
-      // console.log(validatedPayload)
+    //   console.log('Validated Payload: ',validatedPayload)
       return validatedPayload
     }
     catch (err){
