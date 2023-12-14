@@ -1,5 +1,5 @@
 const oms = require('express').Router();
-const crypto = require("crypto");
+// const crypto = require("crypto");
 const {SEC_KEY} = process.env;
 
 const {google}= require("googleapis");
@@ -96,11 +96,13 @@ oms.get('/', async(req,res)=>{
 
 oms.get('/:email', async(req,res)=>{
 
-    const mykey = crypto.createDecipher('aes-128-cbc',SEC_KEY);
+    // const mykey = crypto.createDecipher('aes-128-cbc',SEC_KEY);
 
-    let email = mykey.update(req.params.email,'hex','utf-8');
+    // let email = mykey.update(req.params.email,'hex','utf-8');
 
-    email += mykey.final('utf-8');
+    // email += mykey.final('utf-8');
+
+    let email = req.params.email;
 
     //create client instance for auth
    const client = await auth.getClient();
@@ -114,7 +116,7 @@ oms.get('/:email', async(req,res)=>{
        spreadsheetId,
        range: "Sheet1",
      });
-    //  console.log(getRows.data.values[1][1])
+     console.log(getRows.data.values)
     //  res.json(getRows.data.values);
      const rows = getRows.data.values;
      const filteredRows = []
