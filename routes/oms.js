@@ -94,16 +94,10 @@ oms.get('/', async(req,res)=>{
   return token
   }
 
-oms.get('/:email', async(req,res)=>{
+oms.get('/Byemail', async(req,res)=>{
 
-    // const mykey = crypto.createDecipher('aes-128-cbc',SEC_KEY);
-
-    // let email = mykey.update(req.params.email,'hex','utf-8');
-
-    // email += mykey.final('utf-8');
-
-    let email = req.params.email;
-
+    let email = req.headers.email//req.params.email;
+    console.log(email)
     //create client instance for auth
    const client = await auth.getClient();
     
@@ -116,7 +110,7 @@ oms.get('/:email', async(req,res)=>{
        spreadsheetId,
        range: "Sheet1",
      });
-     console.log(getRows.data.values)
+    //  console.log(getRows.data.values)
     //  res.json(getRows.data.values);
      const rows = getRows.data.values;
      const filteredRows = []
@@ -126,21 +120,47 @@ oms.get('/:email', async(req,res)=>{
              filteredRows.push(row)
          }
      }
-
+     console.log(filteredRows)
      res.json(filteredRows);
 
  })
 
+ oms.get('/:email', async(req,res)=>{
+
+
+  let email = req.params.email;
+  console.log(email)
+  //create client instance for auth
+ const client = await auth.getClient();
+  
+ //Instance of API
+ const googleSheets = google.sheets({version: "v4", auth: client });
+   
+ const getRows = await googleSheets.spreadsheets.values.get({
+   
+     auth,
+     spreadsheetId,
+     range: "Sheet1",
+   });
+  
+   const rows = getRows.data.values;
+   const filteredRows = []
+
+   for (const row of rows) {
+       if ((row[0]) == email) {
+           filteredRows.push(row)
+       }
+   }
+   console.log(filteredRows)
+   res.json(filteredRows);
+
+})
+
+
+
  oms.get('/orders/:order_id', async(req,res)=>{
 
-    // const mykey = crypto.createDecipher('aes-128-cbc',SEC_KEY);
-
-    // let email = mykey.update(req.params.email,'hex','utf-8');
-
-    // email += mykey.final('utf-8');
-
-    //create client instance for auth
-    // console.log(req.params.order_id)
+    
    const client = await auth.getClient();
     
    //Instance of API
