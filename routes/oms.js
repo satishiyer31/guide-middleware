@@ -41,7 +41,7 @@ oms.get('/', async(req,res)=>{
             
             auth,
             spreadsheetId,
-            range: "Sheet1",
+            range: "OrdersDB", //"Sheet1",
             });
             //  console.log(getRows.data.values[1][1])
             //  res.json(getRows.data.values);
@@ -108,7 +108,7 @@ oms.get('/Byemail', async(req,res)=>{
      
        auth,
        spreadsheetId,
-       range: "Sheet1",
+       range: "OrdersDB", //"Sheet1",
      });
     //  console.log(getRows.data.values)
     //  res.json(getRows.data.values);
@@ -140,7 +140,7 @@ oms.get('/Byemail', async(req,res)=>{
    
      auth,
      spreadsheetId,
-     range: "Sheet1",
+     range: "OrdersDB", //"Sheet1",
    });
   
    const rows = getRows.data.values;
@@ -170,7 +170,7 @@ oms.get('/Byemail', async(req,res)=>{
      
        auth,
        spreadsheetId,
-       range: "Sheet1",
+       range: "OrdersDB", //"Sheet1",
      });
     //  console.log(getRows.data.values[1][1])
     //  res.json(getRows.data.values);
@@ -186,5 +186,111 @@ oms.get('/Byemail', async(req,res)=>{
      res.json(filteredRows);
 
  })
+
+ oms.put('/updateAddress', async(req,res)=>{
+
+  let order_id = req.body.order_id//req.params.email;
+
+  let new_address = req.body.new_address
+  
+  // console.log(order_id)
+  // console.log(new_address)
+    
+  const client = await auth.getClient();
+   
+  //Instance of API
+  const googleSheets = google.sheets({version: "v4", auth: client });
+    
+  const getRows = await googleSheets.spreadsheets.values.get({
+    
+      auth,
+      spreadsheetId,
+      range: "OrdersDB", //"Sheet1",
+    });
+   
+    const rows = getRows.data.values
+    const filteredRows = []
+    var counter=0;
+    var row_number;
+
+    for (const row of rows) {
+      counter++;
+        if ((row[1]) == order_id) {
+            filteredRows.push(row)
+            row_number = counter;
+        }
+    }
+
+    console.log('Identified row number is: ',row_number)
+
+    //update new address data on the sheet
+
+    await googleSheets.spreadsheets.values.update({
+        auth,
+        spreadsheetId,
+        range: `OrdersDB!I${row_number}`,
+        valueInputOption:"USER_ENTERED",
+        resource: {
+          values: [[`${new_address}`]]
+        }
+    })
+
+
+
+    res.status(201).json(new_address);
+
+})
+
+
+
+oms.put('/cancelOrder', async(req,res)=>{
+
+  let order_id = req.body.order_id;
+    
+  const client = await auth.getClient();
+   
+  //Instance of API
+  const googleSheets = google.sheets({version: "v4", auth: client });
+    
+  const getRows = await googleSheets.spreadsheets.values.get({
+    
+      auth,
+      spreadsheetId,
+      range: "OrdersDB", //"Sheet1",
+    });
+   
+    const rows = getRows.data.values
+    const filteredRows = []
+    var counter=0;
+    var row_number;
+
+    for (const row of rows) {
+      counter++;
+        if ((row[1]) == order_id) {
+            filteredRows.push(row)
+            row_number = counter;
+        }
+    }
+
+    // console.log('Identified row number is: ',row_number)
+
+    //update new address data on the sheet
+
+    await googleSheets.spreadsheets.values.update({
+        auth,
+        spreadsheetId,
+        range: `OrdersDB!F${row_number}`,
+        valueInputOption:"USER_ENTERED",
+        resource: {
+          values: [["Cancelled"]]
+        }
+    })
+
+
+
+    res.status(201).json(`${order_id} cancelled`);
+
+})
+
 
 module.exports = oms;
