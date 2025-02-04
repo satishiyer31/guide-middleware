@@ -8,7 +8,7 @@ const jwksClientInstance = jwksClient({
 })
 
 sf.get('/', async (req, res) => {
-  
+  // console.log(req)
   try{
       const data = await ProcessToken(req,res)
       // console.log(data)
@@ -16,7 +16,7 @@ sf.get('/', async (req, res) => {
         throw Error('Invalid Authorization')
       }
       const email = data.email
-      // console.log(email)
+      //  console.log(email)
 
       var queryUrl = "Select CaseNumber,subject, description, status, createddate,lastreferenceddate,id from Case where contactemail= '" + email+"'";
       // console.log(queryUrl)
@@ -42,7 +42,7 @@ sf.get('/', async (req, res) => {
       try {
         const token = await getTokenfromHeader(request)
         const validatedPayload = await validateToken(token)
-        // console.log(validatedPayload)
+        //  console.log(validatedPayload)
         return validatedPayload
       }
       catch (err){
