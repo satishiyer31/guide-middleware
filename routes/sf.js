@@ -42,7 +42,7 @@ sf.get('/', async (req, res) => {
       try {
         const token = await getTokenfromHeader(request)
         const validatedPayload = await validateToken(token)
-        //  console.log(validatedPayload)
+         console.log(validatedPayload)
         return validatedPayload
       }
       catch (err){

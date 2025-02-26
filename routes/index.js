@@ -8,7 +8,7 @@ const encryptRouter = require('./encrypt')
 // const AlexaRouter = require('./alexa.js')
 const jwtRouter = require('./enduserAuth')
 const aiRouter = require('./ai')
-const vmRouter = require('./vm')
+
 
 const app = express();
 
@@ -20,6 +20,6 @@ app.use('/crypto',encryptRouter);
 // app.use('/alexa',AlexaRouter);
 app.use('/jwt', jwtRouter);
 app.use('/ai',aiRouter);
-app.use('/vm',vmRouter);
+
 
 module.exports = app;
