@@ -14,7 +14,7 @@ ai.post('/', async (req,res) => {
     console.log(language)
     
     var body = {"model": "gpt-3.5-turbo",
-            "messages": [{"role": "user", "content":  "Summarize Zendesk capabilities & features for this question: " + input }] };
+            "messages": [{"role": "user", "content":  "Answer this RFP question about Zendesk: " + input }] };
     
     var headers = {
                 'Content-Type': 'application/json',

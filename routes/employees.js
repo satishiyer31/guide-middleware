@@ -59,4 +59,55 @@ emp.get('/:Id', async(req,res)=>{
 
  })
 
+
+ emp.put('/unlock', async(req,res)=>{
+
+    let emp_id = req.body.emp_id;
+    console.log(emp_id)
+    const client = await auth.getClient();
+     
+    //Instance of API
+    const googleSheets = google.sheets({version: "v4", auth: client });
+      
+    const getRows = await googleSheets.spreadsheets.values.get({
+      
+        auth,
+        spreadsheetId,
+        range: "EmployeeDB", //"Sheet1",
+      });
+     
+      const rows = getRows.data.values
+      console.log(rows)
+      const filteredRows = []
+      var counter=0;
+      var row_number;
+  
+      for (const row of rows) {
+        counter++;
+          if ((row[0]) == emp_id) {
+              filteredRows.push(row)
+              row_number = counter;
+          }
+      }
+  
+      console.log('Identified row number is: ',row_number)
+  
+      //update new address data on the sheet
+  
+      await googleSheets.spreadsheets.values.update({
+          auth,
+          spreadsheetId,
+          range: `EmployeeDB!L${row_number}`,
+          valueInputOption:"USER_ENTERED",
+          resource: {
+            values: [["Unlocked"]]
+          }
+      })
+  
+  
+  
+      res.status(201).json(`${emp_id} Unlocked`);
+  
+  })
+
 module.exports = emp;
