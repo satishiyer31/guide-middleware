@@ -106,7 +106,7 @@ emp.get('/:Id', async(req,res)=>{
   
   
   
-      res.status(201).json(`${emp_id} Unlocked`);
+      res.status(200).json(`${emp_id} Unlocked`);
   
   })
 

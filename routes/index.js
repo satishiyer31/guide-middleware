@@ -8,6 +8,7 @@ const encryptRouter = require('./encrypt')
 // const AlexaRouter = require('./alexa.js')
 const jwtRouter = require('./enduserAuth')
 const aiRouter = require('./ai')
+const kbRouter = require('./kb')
 
 
 const app = express();
@@ -20,6 +21,7 @@ app.use('/crypto',encryptRouter);
 // app.use('/alexa',AlexaRouter);
 app.use('/jwt', jwtRouter);
 app.use('/ai',aiRouter);
+app.use('/kb',kbRouter);
 
 
 module.exports = app;
