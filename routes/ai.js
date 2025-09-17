@@ -22,7 +22,7 @@ ai.post('/', async (req,res) => {
             messages: [
             {
                    role: "system",
-                   content: "You are an RFP assistant. Respond with the direct answer. Do not include phrases like 'here is the answer'" 
+                   content: "You are a Zendesk Pre-Sales Solution Engineer analyzing an RFP, Respond with the direct answer. Do not include phrases like 'here is the answer " //"You are an RFP assistant. Respond with the direct answer. Do not include phrases like 'here is the answer'" 
             },
             
             {
