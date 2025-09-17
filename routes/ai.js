@@ -1,73 +1,43 @@
 const ai = require('express').Router();
-const {OPEN_AI} = process.env;
-const fetch =require('node-fetch') ;
+// const {OPEN_AI} = process.env;
+// const fetch =require('node-fetch') ;
+
+const OpenAI = require('openai')
+const {SATISH_OPENAI_TOKEN} = process.env;
 
 
 ai.post('/', async (req,res) => {
 
-    // console.log(req.body)
-    var url = "https://ai-gateway.zende.sk/v1/chat/completions";
-    var input = req.body.messages[0].content
-    //Detect Language of Input
 
-    const language = await detectLanguage(input) 
-    console.log(language)
-    
-    var body = {"model": "gpt-3.5-turbo",
-            "messages": [{"role": "user", "content":  "Answer this RFP question about Zendesk: " + input }] };
-    
-    var headers = {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + OPEN_AI 
+
+    const openai = new OpenAI({
+        apiKey: SATISH_OPENAI_TOKEN,
+        });
+        
+        var input = req.body.messages[0].content
+        var prompt = "Answer this Zendesk RFP question: "+ input + " Respond ONLY with the direct answer. Do not include phrases like 'here is your answer' or any extra commentary."
+
+        const response = await openai.chat.completions.create({
+            model: "gpt-5", // or "gpt-4-turbo"
+            messages: [
+            {
+                   role: "system",
+                   content: "You are an RFP assistant. Respond ONLY with the direct answer. Do not include phrases like 'here is the answer' or any introduction." 
+            },
+            
+            {
+                role: "user",
+                content: prompt,
             }
-
-    var params = {
-        "method": "POST",
-        "headers": headers,
-        "body": JSON.stringify(body),
-        "muteHttpExceptions": true
-    };
-
-    var results = await fetch(url, params)
-    const resp = await results.json()
-    //console.log(resp.choices[0].message.content)
-
-
-    if (language == 'English') {
-        res.json(resp.choices[0].message.content)
-    }
-    else {
-        var body = {"model": "gpt-3.5-turbo",
-            "messages": [{"role": "user", "content":  `Convert to ${language}:` + resp.choices[0].message.content }] };
-        var results_conv = await fetch(url, params)
-        const resp3 = await results_conv.json()
-        res.json(resp3.choices[0].message.content)
-    }
-    // res.json(resp.choices[0].message.content)
-
-    async function detectLanguage(input)  {
-
-        var body_lang = {"model": "gpt-3.5-turbo",
-            "messages": [{"role": "user", "content":  "Detect Language of this text and respond in one word with the name of the language only" + input}] };
+            ]
+            });
+        
+            console.log(response.choices[0].message.content);
+            res.status(200).json(response.choices[0].message.content)
     
-        var headers_lang = {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + OPEN_AI 
-            }
 
-        var params_lang = {
-            "method": "POST",
-            "headers": headers_lang,
-            "body": JSON.stringify(body_lang),
-            "muteHttpExceptions": true
-        };
 
-        var results2= await fetch(url,params_lang)
-        const resp2 = await results2.json()
-        //  console.log(resp2.choices[0].message.content)
-        return await resp2.choices[0].message.content
-
-    }
+    
 
 })
 
