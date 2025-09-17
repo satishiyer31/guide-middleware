@@ -14,7 +14,7 @@ ai.post('/', async (req,res) => {
         apiKey: SATISH_OPENAI_TOKEN,
         });
         
-        var input = req.body.messages[0].content
+        var input = req.body.content
         var prompt = "Answer this Zendesk RFP question: "+ input + " Respond ONLY with the direct answer. Do not include phrases like 'here is your answer' or any extra commentary."
 
         const response = await openai.chat.completions.create({
