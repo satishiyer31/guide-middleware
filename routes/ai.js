@@ -18,7 +18,7 @@ ai.post('/', async (req,res) => {
         var prompt = "Answer this Zendesk RFP question: "+ input 
 
         const response = await openai.chat.completions.create({
-            model: "gpt-5", // or "gpt-4-turbo"
+            model: "gpt-4-turbo",
             messages: [
             {
                    role: "system",
