@@ -15,7 +15,7 @@ ai.post('/', async (req,res) => {
         
         var input = req.body.content
         
-        var prompt = "Answer this Zendesk RFP question: "+ input 
+        var prompt = "Answer this Salesforce RFP question: "+ input 
 
         const system_prompt =   `You are a Salesforce Solutions Architect answering enterprise RFP questions.
                                 CRITICAL LATENCY CONSTRAINT: You are being called via a strict API limit. Output ONLY the direct answer. Omit all conversational filler, introductions, and conclusions. Keep responses concise, punchy, and ideally under 150-200 words. Use bullet points for readability and faster generation.
