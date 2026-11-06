@@ -7,15 +7,18 @@ const {SATISH_OPENAI_TOKEN} = process.env;
 
 ai.post('/', async (req,res) => {
 
+    try {
+        if (!SATISH_OPENAI_TOKEN) {
+            return res.status(500).json({ error: 'OpenAI API key not configured' });
+        }
 
-
-    const openai = new OpenAI({
-        apiKey: SATISH_OPENAI_TOKEN,
+        const openai = new OpenAI({
+            apiKey: SATISH_OPENAI_TOKEN,
         });
-        
+
         var input = req.body.content
-        
-        var prompt = "Answer this Salesforce RFP question: "+ input 
+
+        var prompt = "Answer this Salesforce RFP question: "+ input
 
         const system_prompt =   `You are a Salesforce Solutions Architect answering enterprise RFP questions.
                                 CRITICAL LATENCY CONSTRAINT: You are being called via a strict API limit. Output ONLY the direct answer. Omit all conversational filler, introductions, and conclusions. Keep responses concise, punchy, and ideally under 150-200 words. Use bullet points for readability and faster generation.
@@ -46,24 +49,25 @@ ai.post('/', async (req,res) => {
         const response = await openai.chat.completions.create({
             model: "gpt-4-turbo",
             messages: [
-            {
-                   role: "system",
-                   content: system_prompt 
-            },
-            
-            {
-                role: "user",
-                content: prompt,
-            }
-            ]
-            });
-        
-            console.log(response.choices[0].message.content);
-            res.status(200).json(response.choices[0].message.content)
-    
+                {
+                    role: "system",
+                    content: system_prompt
+                },
+                {
+                    role: "user",
+                    content: prompt,
+                }
+            ],
+            timeout: 25000,
+        });
 
+        console.log(response.choices[0].message.content);
+        res.status(200).json(response.choices[0].message.content);
 
-    
+    } catch (err) {
+        console.error('AI route error:', err.message || err);
+        res.status(500).json({ error: err.message || 'Internal server error' });
+    }
 
 })
 
