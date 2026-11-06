@@ -14,6 +14,7 @@ ai.post('/', async (req,res) => {
 
         const openai = new OpenAI({
             apiKey: SATISH_OPENAI_TOKEN,
+            timeout: 25000,
         });
 
         var input = req.body.content
@@ -58,7 +59,6 @@ ai.post('/', async (req,res) => {
                     content: prompt,
                 }
             ],
-            timeout: 25000,
         });
 
         console.log(response.choices[0].message.content);
