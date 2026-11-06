@@ -47,7 +47,7 @@ ai.post('/', async (req,res) => {
                                 Use enterprise procurement terminology (SLAs, hyper-scalability, API-first, security). Emphasize the out-of-the-box native strength of Service Cloud and Agentforce without requiring third-party tools. Focus on the most impactful features immediately.`
 
         const response = await openai.chat.completions.create({
-            model: "gpt-4-turbo",
+            model: "gpt-4o",
             messages: [
                 {
                     role: "system",
